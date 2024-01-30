@@ -1,4 +1,4 @@
-import logo from "../assets/logoblanco.png";
+import logo from "../../assets/logoblanco.png";
 
 import Navigation from './Navigation';
 import classes from './MainHeader.module.scss';

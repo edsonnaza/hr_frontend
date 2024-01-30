@@ -17,6 +17,8 @@ const emailReducer = (state, action) => {
 };
 
 const Login = (props) => {
+
+  console.log('Login props:',props);
   //   const [enteredEmail, setEnteredEmail] = useState('');
   //   const [emailIsValid, setEmailIsValid] = useState();
   const [enteredPassword, setEnteredPassword] = useState('');
