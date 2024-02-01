@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 //import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import {useNavigate, BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
  import Login from './components/Login/Login';
  import HomePage from './components/Home/Home';
  import MainHeader from './components/MainHeader/MainHeader';
@@ -31,7 +31,7 @@ import './App.scss'
     
     // ]);
     function App() {
-      const navigate = useNavigate();
+     
       const isLoading = useSelector((state) => state.isLoading);
       
 
@@ -66,7 +66,7 @@ import './App.scss'
       dispatch(actionReconectLogin(JSON.parse(localStorage.getItem('userLogged'))))
     }
 
-    !isLoggedIn && navigate('/login');
+ 
     
   },[storedUserLoggedInInformation, dispatch,isLoggedIn]);
 
@@ -131,6 +131,12 @@ import './App.scss'
     setErrorMsg('');
   }
   const { pathname } = useLocation();
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/login" element={!isLoggedIn && <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation}  />} /> */}
+        <Route path="*" element={<PageNotFound />} />
+        
+      </Routes>
 
   return (
     
@@ -142,17 +148,11 @@ import './App.scss'
  
       <MainHeader isAuthenticated={isLoggedIn} userLogged={storedUserLoggedInInformation} onLogout={logoutHandler}/>
       
- 
+      {!isLoggedIn && <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation}  /> }
        
    
       {isLoggedIn && <HomePage userLogged={storedUserLoggedInInformation}/>}
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={!isLoggedIn && <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation}  />} />
-        <Route path="*" element={<PageNotFound />} />
-        
-      </Routes>
 
       </main>
     </div>
