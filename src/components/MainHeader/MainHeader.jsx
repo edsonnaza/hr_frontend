@@ -4,6 +4,7 @@ import Navigation from './Navigation';
 import classes from './MainHeader.module.scss';
 
 const MainHeader = (props) => {
+   
   return (
     <header className={classes['main-header']}>
       <h1> <img className={classes.logo} src={logo} alt="HR Logo" />

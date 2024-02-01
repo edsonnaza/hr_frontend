@@ -3,6 +3,7 @@ import  { useReducer, useState, useEffect } from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.scss';
 import Button from '../UI/Button/Button';
+import ErrorPage from '../../pages/Error';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { actionTryLogin} from '../../redux/actions';
@@ -20,10 +21,7 @@ const emailReducer = (state, action) => {
 };
 
 const Login = (props) => {
-  const dispatch = useDispatch();
-//  console.log('Login props:',props);
-  //   const [enteredEmail, setEnteredEmail] = useState('');
-  //   const [emailIsValid, setEmailIsValid] = useState();
+   
   const [enteredPassword, setEnteredPassword] = useState('');
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
@@ -33,13 +31,13 @@ const Login = (props) => {
     isValid: null,
   });
 
-  useEffect(() => {
-  //  console.log('EFFECT RUNNING');
+  // useEffect(() => {
+  // //  console.log('EFFECT RUNNING');
 
-    return () => {
-   //   console.log('EFFECT CLEANUP');
-    };
-  }, []);
+  //   return () => {
+  //  //   console.log('EFFECT CLEANUP');
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   const identifier = setTimeout(() => {
@@ -56,6 +54,7 @@ const Login = (props) => {
   // }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
+    props.cleanErrorMessage();
     dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
 
     setFormIsValid(
@@ -64,30 +63,34 @@ const Login = (props) => {
   };
 
   const passwordChangeHandler = (event) => {
+    props.cleanErrorMessage();
     setEnteredPassword(event.target.value);
 
     setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
 
   const validateEmailHandler = () => {
+    props.cleanErrorMessage();
     dispatchEmail({ type: 'INPUT_BLUR' });
   };
 
   const validatePasswordHandler = () => {
+    props.cleanErrorMessage();
     setPasswordIsValid(enteredPassword.trim().length > 6);
   };
 
   const submitHandler = (event) => {
+    props.cleanErrorMessage();
     event.preventDefault();
-    dispatch(actionTryLogin(emailState.value, enteredPassword));
- 
-    //const userLogged = useSelector((state)=> state.userLogged);
-    props.onLogin(emailState.value, enteredPassword);
+    
+    props.onLogin(emailState.value,enteredPassword)
+   // props.onLogin(emailState.value, enteredPassword);
   };
 
   return (
     <Card className={classes.login}>
-      <form onSubmit={submitHandler}>
+        <form  >
+     
         <div
           className={`${classes.control} ${
             emailState.isValid === false ? classes.invalid : ''
@@ -100,6 +103,7 @@ const Login = (props) => {
             value={emailState.value}
             onChange={emailChangeHandler}
             onBlur={validateEmailHandler}
+             
           />
         </div>
         <div
@@ -117,7 +121,10 @@ const Login = (props) => {
           />
         </div>
         <div className={classes.actions}>
-          <Button type='submit' className={classes.btn} disabled={!formIsValid}>
+             {props.errorMessage && <ErrorPage errorMessage={props.errorMessage} title={""}/>}
+
+          
+          <Button type='button' onClick={submitHandler} className={classes.btn} disabled={!formIsValid}>
             Login
           </Button>
         </div>

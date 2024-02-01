@@ -4,7 +4,7 @@ import { SUCCESS_LOGIN, FAIL_TRY_LOGIN, IS_LOADING,LOGOUT, RECONECT_LOGIN} from 
 const initialState = {
 
   isLoading:false,
-  userLogged:{id:'', user_name:'', user_lastname:'',email:'',isLogin:false, errorMessage:''}
+  userLogged:{id:'', user_name:'', user_lastname:'',email:'',isLogin:false, errorMessage:['init']}
 
 };
 
@@ -43,10 +43,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
   case FAIL_TRY_LOGIN:
     return {
-        ...state,
-        userLogged:payload
+      ...state,
+      userLogged: {
+        ...state.userLogged,
+        errorMessage: [payload],
 
-    } 
+    } }
 
   // case SET_CURRENT_PAGE:
   // return {

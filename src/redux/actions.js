@@ -38,50 +38,59 @@ export const actionLogout =  ()=>({
 
   //dispatch(setIsLoading(false))
 })
-
-export const actionTryLogin = (email, password)=>{
-  //const {email, password} = inputForm;
- // console.log('actiontyrlogin:',email, password)
-  return async(dispatch)=>{
+export const actionTryLogin = (email, password) => {
+  return async (dispatch) => {
     try {
-       // Indicar que se está cargando
-       dispatch(setIsLoading(true))
+      dispatch(setIsLoading(true));
+
       const response = await axios.get(`/login?email=${email}&password=${password}`);
       const data = response.data;
-     // console.log('Data from the server:', data);
 
-      if (data.email === email && data.isLogin) {     // Correct user and password
-          // Indicar que se está cargando
-       dispatch(setIsLoading(false))
-        const errorMessage=['Successful login'];
-          console.log('Successfull')
+      if (data.email === email && data.isLogin) {
+        dispatch(setIsLoading(false));
+        const errorMessage = ['Successful login'];
+
         dispatch({
           type: SUCCESS_LOGIN,
-         payload: {
-                      data,
-                      isLogin: true,
-                      errorMessage
-                    },
+          payload: {
+            data,
+            isLogin: true,
+            errorMessage,
+          },
         });
       } else {
-        dispatch(setIsLoading(false))
-        const errorMessage=['Invalid user or password, please try again!']
-          dispatch({
-            type:FAIL_TRY_LOGIN,
-            payload:errorMessage
-          })
-
+        dispatch(setIsLoading(false));
+        const errorMessage = ['Invalid user or password, please try again!'];
+        dispatch({
+          type: FAIL_TRY_LOGIN,
+          payload: errorMessage,
+        });
       }
-
     } catch (error) {
-      dispatch(setIsLoading(false))
+      dispatch(setIsLoading(false));
+
       if (error.response) {
+        const errorMessage = [error.response.data];
+        dispatch({
+          type: FAIL_TRY_LOGIN,
+          payload: errorMessage,
+        });
         console.error('Error response data:', error.response.data);
-        //      
+      } else {
+        const errorMessage = ['An error occurred. Please try again later.'];
+        dispatch({
+          type: FAIL_TRY_LOGIN,
+          payload: errorMessage,
+        });
+        console.error('Network error:', error.message);
       }
+
+      // Devolver una promesa rechazada para permitir el manejo de errores en el bloque catch externo
+      return Promise.reject(error);
     }
-  }
-}
+  };
+};
+
 
 // export const setCurrentPage = (currentPage) => ({
 //   type: SET_CURRENT_PAGE,
