@@ -1,16 +1,39 @@
 * {
   box-sizing: border-box;
+  font-display:block;
+  
 }
 
 html {
   font-family: sans-serif;
   background: #fff;
+  font-display:block;
+ 
 }
 
 body {
   margin: 0;
+ 
+ 
+ 
+ // font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
 }
 
 main {
-  margin-top: 6rem;
+ 
+  margin:0;
+  
+  display: flex;
+  justify-content: center;
+  place-items: center;
+ 
+   
+
+   
+  
+  min-width: 20px;
+  min-height: 50vh;
+ 
+ 
 }

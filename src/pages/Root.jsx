@@ -31,7 +31,7 @@ function RootLayout() {
       <MainNavigation isAuthenticated={true} onLogout={''}/>
       <main>
         {/* {navigation.state === 'loading' && <p>Loading...</p>} */}
-        <Outlet />
+        {/* <Outlet /> */}
       </main>
     </>
   );

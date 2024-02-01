@@ -8,7 +8,7 @@ const MainHeader = (props) => {
     <header className={classes['main-header']}>
       <h1> <img className={classes.logo} src={logo} alt="HR Logo" />
    </h1>
-      <Navigation isLoggedIn={props.isAuthenticated} onLogout={props.onLogout} />
+      <Navigation isLoggedIn={props.isAuthenticated} userLogged={props.userLogged} onLogout={props.onLogout} />
     </header>
   );
 };

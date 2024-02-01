@@ -4,6 +4,9 @@ import Card from '../UI/Card/Card';
 import classes from './Login.module.scss';
 import Button from '../UI/Button/Button';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { actionTryLogin} from '../../redux/actions';
+
 const emailReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
     return { value: action.val, isValid: action.val.includes('@') };
@@ -17,8 +20,8 @@ const emailReducer = (state, action) => {
 };
 
 const Login = (props) => {
-
-  console.log('Login props:',props);
+  const dispatch = useDispatch();
+//  console.log('Login props:',props);
   //   const [enteredEmail, setEnteredEmail] = useState('');
   //   const [emailIsValid, setEmailIsValid] = useState();
   const [enteredPassword, setEnteredPassword] = useState('');
@@ -31,10 +34,10 @@ const Login = (props) => {
   });
 
   useEffect(() => {
-    console.log('EFFECT RUNNING');
+  //  console.log('EFFECT RUNNING');
 
     return () => {
-      console.log('EFFECT CLEANUP');
+   //   console.log('EFFECT CLEANUP');
     };
   }, []);
 
@@ -76,6 +79,9 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    dispatch(actionTryLogin(emailState.value, enteredPassword));
+ 
+    //const userLogged = useSelector((state)=> state.userLogged);
     props.onLogin(emailState.value, enteredPassword);
   };
 

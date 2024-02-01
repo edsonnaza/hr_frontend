@@ -1,7 +1,10 @@
+ 
 import { 
   IS_LOADING,
   FAIL_TRY_LOGIN,
   SUCCESS_LOGIN,
+  LOGOUT,
+  RECONECT_LOGIN
    
   } from "./actions-types";
  
@@ -12,7 +15,8 @@ import axios from 'axios';
 //const URL_TEAMS = 'https://pi-driver-backend-production.up.railway.app/teams/';
  
 axios.defaults.baseURL=process.env.VITE_BASE_URL;
-//console.log('acitons:',axios.defaults.baseURL);
+
+//console.log('actions:',axios.defaults.baseURL);
  
 
 export const setIsLoading=(trueOrFalse)=>({
@@ -21,17 +25,36 @@ type: IS_LOADING,
 payload: trueOrFalse,
 });
 
+export const actionReconectLogin = (userLogged)=>({
+  type: RECONECT_LOGIN,
+  payload:userLogged,
+});
 
-export const tryLogin = (inputForm)=>{
-  const {email, password} = inputForm;
+export const actionLogout =  ()=>({
+ // dispatch(setIsLoading(true))
+
+    type:LOGOUT
+ 
+
+  //dispatch(setIsLoading(false))
+})
+
+export const actionTryLogin = (email, password)=>{
+  //const {email, password} = inputForm;
+ // console.log('actiontyrlogin:',email, password)
   return async(dispatch)=>{
     try {
-      response = await axios.get('/login')
+       // Indicar que se está cargando
+       dispatch(setIsLoading(true))
+      const response = await axios.get(`/login?email=${email}&password=${password}`);
+      const data = response.data;
+     // console.log('Data from the server:', data);
 
-      data = response.data;
-      if(data.email===email && data.password===password){
-          // Correct user and password
-          const errorMessage=['Successful login'];
+      if (data.email === email && data.isLogin) {     // Correct user and password
+          // Indicar que se está cargando
+       dispatch(setIsLoading(false))
+        const errorMessage=['Successful login'];
+          console.log('Successfull')
         dispatch({
           type: SUCCESS_LOGIN,
          payload: {
@@ -41,6 +64,7 @@ export const tryLogin = (inputForm)=>{
                     },
         });
       } else {
+        dispatch(setIsLoading(false))
         const errorMessage=['Invalid user or password, please try again!']
           dispatch({
             type:FAIL_TRY_LOGIN,

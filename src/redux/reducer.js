@@ -1,10 +1,10 @@
-import { SUCCESS_LOGIN, FAIL_TRY_LOGIN, IS_LOADING} from "./actions-types";
+import { SUCCESS_LOGIN, FAIL_TRY_LOGIN, IS_LOADING,LOGOUT, RECONECT_LOGIN} from "./actions-types";
 
  
 const initialState = {
 
   isLoading:false,
-  userLogged:{user_name:'', user_lastname:'',email:'',isLogin:false, errorMessage:''}
+  userLogged:{id:'', user_name:'', user_lastname:'',email:'',isLogin:false, errorMessage:''}
 
 };
 
@@ -18,7 +18,23 @@ const rootReducer = (state = initialState, { type, payload }) => {
       isLoading:payload
     }
 
+
+    case RECONECT_LOGIN:
+      return {
+        ...state,
+        userLogged:payload
+      }
+
+    case LOGOUT:
+       
+      return {
+        ...state,
+        userLogged: initialState,
+        
+      }
+
   case SUCCESS_LOGIN:
+    console.log('success loggin payload:',payload)
     return {
       ...state,
       userLogged: payload.data,

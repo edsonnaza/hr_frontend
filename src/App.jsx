@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
  import Loader from './pages/Loader/Loader';
 
 import { useDispatch, useSelector } from 'react-redux';
+import {actionLogout,actionReconectLogin} from './redux/actions';
  
 
  //import ErrorPage from './pages/Error';
@@ -31,53 +32,81 @@ import './App.scss'
 // ]);
 function App() {
   const isLoading = useSelector((state) => state.isLoading);
-  console.log('isLoading:', isLoading)
+
+ // console.log('isLoading:', isLoading)
+ // console.log('isLogin:',useSelector((state)=>state.userLogged));
+  let storedUserLoggedInInformation = useSelector((state)=>state.userLogged);
+  
+
+  //    storedUserLoggedInInformation=useSelector((state)=>state.userLogged);
+  // }
+
+ // console.log('userLogged:',storedUserLoggedInInformation)
   const dispatch = useDispatch();
   //return <RouterProvider router={router}/>;
 
   const [isLoggedIn, setIsloggedIn] = useState(false);
+
    useEffect(()=>{
-    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+    //const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+    //let storedUserLoggedInInformation = useSelector((state)=>state.userLogged);
     
-    if(storedUserLoggedInInformation ==='1'){
+    if(storedUserLoggedInInformation?.isLogin){
       setIsloggedIn(true);
+      localStorage.setItem('userLogged', JSON.stringify(storedUserLoggedInInformation));
+  
+    } else {
+    //  console.log('LocalStorage:',localStorage.getItem('userLogged'));
+      dispatch(actionReconectLogin(JSON.parse(localStorage.getItem('userLogged'))))
     }
-  },[]);
+
+    
+  },[storedUserLoggedInInformation]);
 
   const loginHandler = (email, password) =>{
-
+//console.log('loginHandler',email, password)
     //Here check the email and password
     if(email || password){  
       localStorage.setItem('isLoggedIn','1');
+     // const userLogged_id = useSelector((state) => state.userLogged.id);
+    //   console.log('user logged props login handler:',storedUserLoggedInInformation)
+      // Almacena el valor en el localStorage
+      localStorage.setItem('userLogged_email', email);
+    //   localStorage.setItem('userLogged', storedUserLoggedInInformation.userLogged);
+    //  // localStorage.setItem(useSelector((state)=>state.userLogged));
+
+
       setIsloggedIn(true); }
   
   }
 
   const logoutHandler = () =>{
+    localStorage.removeItem('userLogged');
     localStorage.removeItem('isLoggedIn');
+    dispatch(actionLogout())
     setIsloggedIn(false);
   }
 
   const { pathname } = useLocation();
-
-  return (
-    
-    <div>
-      {isLoading && <Loader/>}
-      <h1>Human Resources</h1>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler}/>
-      <main>
-      {!isLoggedIn && <Login onLogin={loginHandler} />}
-        
-
-        
-   
-      </main>
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+
+  return (
+    
+    <div>
+      <main>
+      {isLoading && <Loader/>}
+ 
+      <MainHeader isAuthenticated={isLoggedIn} userLogged={storedUserLoggedInInformation} onLogout={logoutHandler}/>
+      {!isLoggedIn && <Login onLogin={loginHandler}  />}
+
+      
+   
+      {isLoggedIn && <HomePage userLogged={storedUserLoggedInInformation}/>}
+
+      </main>
     </div>
   )
  }
