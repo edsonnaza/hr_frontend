@@ -4,16 +4,28 @@
   padding: 0;
   display: flex;
   align-items: center;
+
+  @include sm{
+    margin-right: 100px;
+    
+  }
 }
 
 .nav li {
   margin: 0;
   margin-left: 2rem;
+
+ 
 }
 
 .nav a {
   text-decoration: none;
   color: white;
+  @include sm{
+  justify-content: baseline;
+  padding: 12px;
+  justify-items: center;
+  }
 }
 
 .nav a:hover,
@@ -21,6 +33,11 @@
   color: #f3cafb;
 }
 
+.buttonContainer {
+  @include sm{
+    flex-direction: row;
+  }
+}
 .nav button {
   font: inherit;
   background:$button-color;
@@ -30,6 +47,10 @@
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
+
+
+
+   
 }
 
 .nav button:focus {

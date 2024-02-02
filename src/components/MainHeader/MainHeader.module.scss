@@ -9,6 +9,21 @@
   align-items: center;
   background:$primary_color;
   padding: 0 2rem;
+
+  @include sm{
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    margin-top: 20px;
+    justify-content: center;
+   margin-inline-end: 2px;
+   margin-inline-start: 2px;
+   padding-left: 100px;
+   padding-bottom: 30px;
+    
+    
+ 
+  }
 }
 
 .main-header h1 {
@@ -19,7 +34,11 @@
   height: 78px;
 
   @include sm {
-    height: 45px;
+    height: 50%px;
+    width: 50%px;
+    margin-right: 70px;
+ 
+    
   }
 
   @include md {

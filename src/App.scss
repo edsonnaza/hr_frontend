@@ -22,18 +22,15 @@ body {
 
 main {
  
-  margin:0;
-  
+  margin: 0;
   display: flex;
   justify-content: center;
-  place-items: center;
- 
-   
-
-   
-  
-  min-width: 20px;
+  align-items: center;
+  flex: 1; // Hace que el contenido se ajuste automáticamente al tamaño del contenedor
   min-height: 50vh;
+  
+
+  
  
  
 }

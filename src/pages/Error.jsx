@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 function ErrorPage(props) {
 
   
-  const message = useSelector((state)=>state.userLogged)
+   
   console.log('ErrorPage:',message);
    
   // const error = useRouteError();

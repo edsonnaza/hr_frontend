@@ -4,18 +4,18 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
  import Login from './components/Login/Login';
  import HomePage from './components/Home/Home';
  import MainHeader from './components/MainHeader/MainHeader';
- import PageNotFound from './pages/PageNotFound';
+ import PageNotFound from './pages/PageNotFound/PageNotFound';
  import Loader from './pages/Loader/Loader';
- import ErrorPage from './pages/Error';
+ 
 
 import { useDispatch, useSelector } from 'react-redux';
 import {actionLogout,actionReconectLogin,actionTryLogin} from './redux/actions';
  
 //import ErrorPage from './pages/Error';
 //import RootLayout from './pages/Root';
-import AuthenticationPage, {
-  action as authAction,
-} from './pages/Authentication';
+// import AuthenticationPage, {
+//   action as authAction,
+// } from './pages/Authentication';
 //import { action as logoutAction } from './pages/Logout';
 //import {  tokenLoader } from './util/auth';
 
@@ -131,29 +131,18 @@ import './App.scss'
     setErrorMsg('');
   }
   const { pathname } = useLocation();
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        {/* <Route path="/login" element={!isLoggedIn && <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation}  />} /> */}
-        <Route path="*" element={<PageNotFound />} />
-        
-      </Routes>
 
   return (
     
     <div>
-      
       <main>
-      {isLoading && <Loader/>}
-      
- 
-      <MainHeader isAuthenticated={isLoggedIn} userLogged={storedUserLoggedInInformation} onLogout={logoutHandler}/>
-      
-      {!isLoggedIn && <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation}  /> }
-       
-   
-      {isLoggedIn && <HomePage userLogged={storedUserLoggedInInformation}/>}
-
-
+        {isLoading && <Loader />}
+        <MainHeader isAuthenticated={isLoggedIn} userLogged={storedUserLoggedInInformation} onLogout={logoutHandler} />
+        <Routes>
+          <Route path="/" element={isLoggedIn ? <HomePage userLogged={storedUserLoggedInInformation} /> : <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation} />} />
+          <Route path="/login" element={!isLoggedIn ? <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation} /> :<HomePage userLogged={storedUserLoggedInInformation} /> } />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
       </main>
     </div>
   )

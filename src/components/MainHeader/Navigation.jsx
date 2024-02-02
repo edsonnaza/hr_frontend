@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import classes from './Navigation.module.scss';
 
 const Navigation = (props) => {
-  console.log(props.userLogged);
+ 
 
  const {user_name, user_lastname} =  props.userLogged? props.userLogged :{};
   //const token = useRouteLoaderData('root');
@@ -17,7 +17,7 @@ const Navigation = (props) => {
   // }, [userLogged]);
   
 
-  console.log('Navigation',props.userLogged)
+ 
   return (
     <nav className={classes.nav}>
       <ul>
@@ -46,7 +46,7 @@ const Navigation = (props) => {
          
 
           
-          <li>   
+          <li className={classes.btnContainer}>   
             <button onClick={props.onLogout}>
               Logout
             
@@ -57,6 +57,7 @@ const Navigation = (props) => {
           </li>
         )}
       </ul>
+      
     </nav>
   );
 };
