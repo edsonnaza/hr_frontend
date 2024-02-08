@@ -1,10 +1,12 @@
-import { SUCCESS_LOGIN, FAIL_TRY_LOGIN, IS_LOADING,LOGOUT, RECONECT_LOGIN} from "./actions-types";
+import { SUCCESS_LOGIN, FAIL_TRY_LOGIN, IS_LOADING,LOGOUT, RECONECT_LOGIN, CREATE_NEW_USER, FAIL_SERVER} from "./actions-types";
 
  
 const initialState = {
 
   isLoading:false,
-  userLogged:{id:'', user_name:'', user_lastname:'',email:'',isLogin:false, errorMessage:['init']}
+  userLogged:{id:'', user_name:'', user_lastname:'',email:'',isLogin:false, errorMessage:['init']},
+  message:'', 
+  status:''
 
 };
 
@@ -34,7 +36,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       }
 
   case SUCCESS_LOGIN:
-    console.log('success loggin payload:',payload)
+    // console.log('success loggin payload:',payload)
     return {
       ...state,
       userLogged: payload.data,
@@ -49,6 +51,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
         errorMessage: [payload],
 
     } }
+
+
+    case FAIL_SERVER:
+      return {
+        ...state,
+        message:[payload]
+      }
 
   // case SET_CURRENT_PAGE:
   // return {
@@ -104,15 +113,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
            
   //         };
 
-  //         case CREATE_NEW_DRIVER:
+          case CREATE_NEW_USER:
              
-  //           return {
-  //             ...state,
-  //             formData:payload.formData,
-  //             status:payload.status,
-  //             buttonDisabled:payload.buttonDisabled,
+            return {
+              ...state,
+              formData:payload.formData,
+              status:payload.status,
+              message:payload.message,
              
-  //           };
+            };
 
   //     case FILTER_BY_TEAM:
   //       const filteredDrivers = payload === "" // Chequea si se seleccionó "Select Team"

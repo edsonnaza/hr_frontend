@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
  import MainHeader from './components/MainHeader/MainHeader';
  import PageNotFound from './pages/PageNotFound/PageNotFound';
  import Loader from './pages/Loader/Loader';
+ import NewUser from './components/NewUser/NewUser';
  
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -141,6 +142,7 @@ import './App.scss'
         <Routes>
           <Route path="/" element={isLoggedIn ? <HomePage userLogged={storedUserLoggedInInformation} /> : <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation} />} />
           <Route path="/login" element={!isLoggedIn ? <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation} /> :<HomePage userLogged={storedUserLoggedInInformation} /> } />
+          <Route path='/newuser' element={<NewUser/> } />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>

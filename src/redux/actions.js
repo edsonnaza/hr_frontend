@@ -4,7 +4,9 @@ import {
   FAIL_TRY_LOGIN,
   SUCCESS_LOGIN,
   LOGOUT,
-  RECONECT_LOGIN
+  RECONECT_LOGIN, 
+  CREATE_NEW_USER,
+  FAIL_SERVER
    
   } from "./actions-types";
  
@@ -90,6 +92,11 @@ export const actionTryLogin = (email, password) => {
     }
   };
 };
+
+export const actionFailServer = () =>({
+  type:FAIL_SERVER,
+  
+})
 
 
 // export const setCurrentPage = (currentPage) => ({
@@ -290,64 +297,92 @@ export const actionTryLogin = (email, password) => {
 
 // }
 
-// export const actionCreateNewDriver = (formData)=>{
+export const actionCreateNewUser = (formData)=>{
   
-//   let statusData='';
-//   let buttonDisabled='false';
-//   let responseFormData={};
-//   let message;
+  let statusData='';
+   
+  let responseFormData={};
+  let message;
   
-//   return async (dispatch) => {
-//     try { 
+  return async (dispatch) => {
+    try { 
 
-//       dispatch(setIsLoading(true))
-//     const response = await axios.post('/drivers/', formData,  
-//       {
-//         headers: {
-//           'Content-Type': 'application/json', // Puedes agregar otros encabezados si es necesario
-//         },
+      dispatch(setIsLoading(true))
+    const response = await axios.post('/user/', formData,  
+      {
+        headers: {
+          'Content-Type': 'application/json', // Puedes agregar otros encabezados si es necesario
+        },
        
-//       });
+      });
 
       
-//       if (response.status === 201) {
-//         // Éxito
-//          statusData='Saved';
-//          buttonDisabled=true;
+      if (response.status === 201) {
+        // Éxito
+         statusData='Saved';
+         
       
 
         
-//        // setFormData({ ...initialFormData, buttonDisabled:true, status:'Saved' })
-//        responseFormData=response.data;
-//         message = 'Saved Successfully' 
-//         // Puedes agregar más lógica aquí después de la creación exitosa del driver
-//       } else {
-//         // Si el servidor responde con un código de error
-//          statusData=response.status;
-//          buttonDisabled=true;
-//          mensaje=response.data;
-//         console.error('Error the response of the API:', response.status, response.data);
+       // setFormData({ ...initialFormData, buttonDisabled:true, status:'Saved' })
+       responseFormData=response.data;
+        message = 'Saved Successfully' 
+        // Puedes agregar más lógica aquí después de la creación exitosa del driver
+      } else {
+        // Si el servidor responde con un código de error
+         statusData=response.status;
+         
+         message=response.data;
+        console.error('Error the response of the API:', response.status, response.data);
 
-//       }
+      }
        
-//       dispatch({
-//         type: CREATE_NEW_DRIVER,
-//         payload: {
-//           formData:responseFormData,
-//           status:statusData,
-//           buttonDisabled:true,
-//           message: message,
-//         },
-//       });
+      dispatch({
+        type: CREATE_NEW_USER,
+        payload: {
+          formData:responseFormData,
+          status:statusData,
+          message: message,
+        },
+      });
 
-//       dispatch(setIsLoading(false))
-//     } catch (error) {
-//       // Manejo de errores si es necesario
-//       console.error(error);
-//     }
-//   };
+      dispatch(setIsLoading(false))
+    } catch (error) {
+      // Manejo de errores si es necesario
+      let errorMessage='';
+      console.error(error);
+      dispatch(setIsLoading(false));
 
-// }
+      if(error.response.status===404){
+         errorMessage = [error.response.status,':',error.response.statusText];
+      
+        console.error('Error response data 404:', error.response.data);
+
+      } else {
+
+        
+        if (error.response) {
+           errorMessage = [error.response.statusText,': ',error.response.data];
+         
+          console.error('Error response data:', error.response.data);
+        } else {
+           errorMessage = ['An error occurred. Please try again later.'];
+          
+          console.error('Network error:', error.message);
+        }
+        
+      }
+      
+      dispatch({
+        type: FAIL_SERVER,
+        payload: errorMessage,
+      });
+      // Devolver una promesa rechazada para permitir el manejo de errores en el bloque catch externo
+      return Promise.reject(error);
+    }
+  };
+
+}
 
 // export const filterByTeam = (team)=>{
  
