@@ -1,12 +1,11 @@
-import  { useReducer, useState, useEffect } from 'react';
+import  { useReducer, useState } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.scss';
 import Button from '../UI/Button/Button';
 import ErrorPage from '../../pages/Error';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { actionTryLogin} from '../../redux/actions';
+import { Link } from 'react-router-dom';
+ 
 
 const emailReducer = (state, action) => {
   if (action.type === 'USER_INPUT') {
@@ -127,7 +126,13 @@ const Login = (props) => {
           <Button type='button' onClick={submitHandler} className={classes.btn} disabled={!formIsValid}>
             Login
           </Button>
+          <br />
+
+          <Link to="/newuser"> 
+          <button type='button' className={classes.btnFlat}>Registrar</button>
+          </Link>
         </div>
+       
       </form>
     </Card>
   );

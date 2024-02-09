@@ -5,7 +5,7 @@
   import validateForm from '../../util/validateNewUser';
   import { useDispatch, useSelector } from 'react-redux';
   import { actionCreateNewUser } from '../../redux/actions';
-  import { useNavigate } from 'react-router-dom';
+  import { Link, useNavigate } from 'react-router-dom';
 
    
 
@@ -16,10 +16,7 @@
     const message = useSelector((state)=>state.message);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // "email": "edsonnaza@gmail.com",
-    // "password": "Login123456",
-    // "user_name":"Edson",
-    // "user_lastname":"Sanchez"
+    
       
       const initErroMessage={
           enteredEmail:'',
@@ -50,6 +47,7 @@
    // const [formIsValid, setFormIsValid] = useState(false);
     const [errorMessage, setErrorMessage] = useState(initErroMessage)
     const [formStatus, setFormStatus] = useState(initialFormStatus);
+    const [counter, setCounter] = useState(0);
   
     
     
@@ -99,39 +97,45 @@
  
 
   const submitHandler = async (event) => {
-   // props.cleanErrorMessage();
     event.preventDefault();
 
-    if(formStatus.formIsValid){
-        
-
-        console.log('Will send the data to save...', inputForm)
+    if (formStatus.formIsValid) {
+        console.log('Will send the data to save...', inputForm);
         try {
             console.log('sending...');
             await dispatch(actionCreateNewUser(inputForm));
-                let counter=1;
-                function countAndLog() {
-                    setTimeout(() => {
-                        console.log('leaving...', counter);
-                        counter++;
-                        countAndLog(); // Llama a la función nuevamente para iniciar otro temporizador
+
+            // Función que espera 5 segundos antes de redirigir a la página de inicio de sesión
+            const waitAndRedirect = () => {
+                let counter = 1;
+                const intervalId = setInterval(() => {
+                    console.log('leaving...', counter);
+                    counter++;
+                    setCounter(counter);
+                }, 1000);
+
+                return new Promise((resolve) => {
+                    const timeoutId = setTimeout(() => {
+                        clearInterval(intervalId); // Limpiar el intervalo
+                        resolve();
                     }, 5000);
 
+                    // Devolver el ID del temporizador para limpiarlo más tarde si es necesario
+                    return timeoutId;
+                });
+            };
 
-                }
-                countAndLog();
-                navigate('/login');
+            const timeoutId = waitAndRedirect(); // Esperar 5 segundos
+            await timeoutId; // Esperar a que se resuelva la promesa (no hace nada, solo para sincronización)
+            setInputForm(initInputForm);
+            navigate('/login'); // Redirigir a la página de inicio de sesión después de 5 segundos
             
-          } catch (error) {
-            //setErrorMsg(error.response.data)
-            console.log('Error during login:',error.response ? error.response.data : error );
-          }
-
+        } catch (error) {
+            console.log('Error during login:', error.response ? error.response.data : error);
+        }
     }
-    
-   // props.onLogin(emailState.value,enteredPassword)
-   // props.onLogin(emailState.value, enteredPassword);
-  };
+};
+
 
  
    
@@ -226,10 +230,12 @@
    
         <div className={style.actions}>
           
-          <Button onClick={submitHandler} className={style.btn} disabled={!formStatus.formIsValid}  >Save
+          <Button onClick={submitHandler} className={style.btn} 
+          disabled={!formStatus.formIsValid}>{counter>=1 ?'Leaving in: '+counter :'Save'}
           </Button>
-
-
+          <Link to={'/login'}>
+        <Button className={style.btn}>Cancel</Button>
+          </Link>
         </div>
             </form>
 
