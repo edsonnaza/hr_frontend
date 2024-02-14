@@ -229,13 +229,18 @@
           <p className={style.savedMessage}>{message && message}</p>
    
         <div className={style.actions}>
-          
+          <div className={style.btnContainer}>
+
           <Button onClick={submitHandler} className={style.btn} 
           disabled={!formStatus.formIsValid}>{counter>=1 ?'Leaving in: '+counter :'Save'}
           </Button>
+          </div>
+
+          <div className={style.btnContainer}>
           <Link to={'/login'}>
-        <Button   className={style.btn}>Cancel</Button>
+           <Button  className={style.btn}>Cancel</Button>
           </Link>
+          </div>
         </div>
             </form>
 
