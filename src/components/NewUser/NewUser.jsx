@@ -234,7 +234,7 @@
           disabled={!formStatus.formIsValid}>{counter>=1 ?'Leaving in: '+counter :'Save'}
           </Button>
           <Link to={'/login'}>
-        <Button className={style.btn}>Cancel</Button>
+        <Button   className={style.btn}>Cancel</Button>
           </Link>
         </div>
             </form>

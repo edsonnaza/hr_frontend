@@ -61,7 +61,13 @@
   }
   
   .actions {
-    text-align: center;
+    flex-direction: column;
+    text-align: right;
+    
+ 
+     
+    
+
   }
   
   @media (min-width: 768px) {

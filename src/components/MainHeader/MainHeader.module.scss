@@ -1,52 +1,238 @@
-.main-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 6rem;
+// .main-header {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 6rem;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   background:$primary_color;
+//   padding: 0 2rem;
+
+//   @include sm{
+     
+//     display: flex;
+//     flex-direction: column;
+//     height: 12rem;
+//     width: 100%;
+//     margin-top: 20px;
+//     justify-content: center;
+//    margin-inline-end: 2px;
+//    margin-inline-start: 2px;
+//    padding-left: 100px;
+//    padding-bottom: 0px;
+//    margin-top: 0px;
+   
+//   }
+// }
+
+// .main-header h1 {
+//   color: white;
+// }
+// .logo {
+//   flex: 1;
+//   height: 78px;
+
+//   @include sm {
+//     height: 50%px;
+//     width: 50%px;
+//     margin-right: 70px;
+ 
+    
+//   }
+
+//   @include md {
+//     margin-top: 8px;
+
+//     align-self: center;
+//   }
+
+
+
+// }
+
+.navContainer {
+
+ 
+  background-color: $black; // hsl(13, 86%, 23%);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background:$primary_color;
-  padding: 0 2rem;
-
-  @include sm{
-    display: flex;
-    flex-direction: column;
+  padding: 0px 35px 10px 90px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  position: fixed;
+     top: 0;
+    left: 0;
+     width: 100%;
     height: 10rem;
-    margin-top: 20px;
-    justify-content: center;
-   margin-inline-end: 2px;
-   margin-inline-start: 2px;
-   padding-left: 100px;
-   padding-bottom: 30px;
-    
-    
- 
-  }
-}
+  //   display: flex;
+   
+  //   align-items: center;
+  //   background:$primary_color;
+  //   padding: 0 2rem;
 
-.main-header h1 {
-  color: white;
-}
-.logo {
-  flex: 1;
-  height: 78px;
 
   @include sm {
-    height: 50%px;
-    width: 50%px;
-    margin-right: 70px;
- 
-    
+    flex-direction: column;
+    padding: 25px 0px;
+    margin-top: 0px;
+
   }
 
   @include md {
-    margin-top: 8px;
+    padding: 1px 15px;
+    flex-direction: column;
+    height: 12rem;
+  }
 
-    align-self: center;
+  .logo {
+    flex: 1;
+    height: 100px;
+
+    @include sm {
+     margin-top:-18px
+
+    }
+
+    @include md {
+      margin-top: 10px;
+      padding-bottom: 1px;
+      
+
+      align-self: center;
+    }
+
+
+
+  }
+
+
+  .secondSection {
+
+    display: flex;
+    @include sm {
+      width: 100%;
+      margin-top: 12px;
+    
+    }
+
+    .wrapperItems {
+
+       gap: 1px;
+       @include sm {
+        margin-left: 22px;
+       }
+
+       @include md{
+       margin-bottom: 15px;
+       }
+
+
+      .linknav {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .itemnav {
+        &:hover {
+          color: $red;
+        }
+
+        color: white;
+        font-size: large;
+
+
+        justify-content: center;
+        padding: 16px 10px;
+        font-family:'Segoe UI',
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+      }
+    }
+
+
   }
 
 
 
+
+  .thirdSection {
+
+ 
+    display: flex;
+
+
+
+
+    .response {
+      margin-top: 20px;
+      height: 45px;
+      color: #D8000C;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 10px;
+      box-shadow: 1px 1px 1px #aaaaaa;
+      background-color: #FFBABA;
+    }
+
+    .searchbarDiv {
+      margin: 0 50px;
+      /* Agrega espacio entre los divs */
+
+    }
+
+    .randomDiv{
+       
+      margin-block-end: 20px;
+      margin-inline-end: -33px;
+    
+
+    }
+
+    .logoutDiv {
+
+
+
+      @include md {
+        margin-top: -5px;
+        margin-right: 2px;
+      }
+
+
+
+    }
+  }
+
+   .buttonRandom{
+    
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: auto;
+    padding: 21px;
+    color: inherit;
+    background: #ebe6ea;
+    box-shadow: 0px 0px 0px 1px black inset;
+    transition: background 0.4s ease;
+    height: 25px;
+    width: 75px;
+    align-self: center;
+    border-radius: 10px;
+    margin-left: 60px;
+ 
+    &:hover {
+      
+        background: $gray;
+        cursor: pointer;
+        color: $yellow;
+   
+    }
+   
+   
+
+   }
 }

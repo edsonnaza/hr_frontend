@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy } from 'react'
 //import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
  import Login from './components/Login/Login';
@@ -22,6 +22,7 @@ import {actionLogout,actionReconectLogin,actionTryLogin} from './redux/actions';
 //import {  tokenLoader } from './util/auth';
 
 import './App.scss'
+//import './scss/style.scss'
 // const router = createBrowserRouter([
   //   { path: '/', element: <MainHeader  /> },
   
@@ -32,6 +33,9 @@ import './App.scss'
     //   },
     
     // ]);
+     
+    
+    
     function App() {
      
       const isLoading = useSelector((state) => state.isLoading);
@@ -141,6 +145,7 @@ import './App.scss'
         {isLoading && <Loader />}
         <MainHeader isAuthenticated={isLoggedIn} userLogged={storedUserLoggedInInformation} onLogout={logoutHandler} />
         <Routes>
+        {/* <Route path="home" name="Home" element={<DefaultLayout /> } /> */}
           <Route path="/" element={isLoggedIn ? <HomePage userLogged={storedUserLoggedInInformation} /> : <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation} />} />
           <Route path="/login" element={!isLoggedIn ? <Login cleanErrorMessage={cleanErrorMessage} onLogin={tryLogin} errorMessage={errorMsg} userLogged={storedUserLoggedInInformation} /> :<HomePage userLogged={storedUserLoggedInInformation} /> } />
           <Route path='/newuser' element={<NewUser/> } />

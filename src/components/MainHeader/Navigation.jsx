@@ -1,6 +1,5 @@
-import { NavLink   } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { Link   } from 'react-router-dom';
+ 
 
 import classes from './Navigation.module.scss';
 
@@ -19,47 +18,46 @@ const Navigation = (props) => {
 
  
   return (
-    <nav className={classes.nav}>
-      <ul>
+    <>
       {props.isLoggedIn && (
-          <li>
-              <NavLink to="/"> 
-                Home
-              </NavLink>
+         
+              <Link  to="/" className={props.Linknav}> 
+              <span className={props.itemnav}>Home </span>  
+              </Link>
              
             
-          </li>
+      
         )}
         {props.isLoggedIn && (
-          <li>
-            <a href="/">Users</a>
-          </li>
+          <Link to={'/'} className={props.Linknav}>
+            <span className={props.itemnav}>Users</span>
+          </Link>
         )}
         {props.isLoggedIn && (
-          <li>
-            <a >{user_name +' ' + user_lastname}</a>
-          </li>
+          <Link>
+            <span  className={props.itemnav}>{user_name +' ' + user_lastname}</span>
+          </Link>
         )}
         
     
         {props.isLoggedIn && (
-         
-
           
-          <li className={classes.btnContainer}>   
-            <button onClick={props.onLogout}>
+          
+          
+          <Link className={classes.Linknav}>   
+            <button className={classes.button} onClick={props.onLogout}>
               Logout
             
             </button> 
              
 
             
-          </li>
+          </Link>
         )}
-      </ul>
       
-    </nav>
-  );
-};
-
-export default Navigation;
+      </>
+      );
+    };
+    
+    export default Navigation;
+    

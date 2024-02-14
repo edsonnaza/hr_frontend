@@ -1,19 +1,30 @@
 .header {
-  max-width: 60rem;
+  max-width: 65rem;
   margin: auto;
-  padding: 2rem;
+  padding: 3rem;
   display: flex;
   justify-content: space-between;
+
+  @include sm{
+    background-color: green;
+    padding: 5rem;
+  }
+
+ 
 }
 
 .list {
   display: flex;
   gap: 1rem;
+  
+
+
 }
 
 .list a {
   text-decoration: none;
   color: var(--color-primary-400);
+
 }
 
 .list a:hover,

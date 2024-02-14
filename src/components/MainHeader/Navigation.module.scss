@@ -1,65 +1,140 @@
-.nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
+// .nav ul {
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+//   display: flex;
+//   align-items: center;
 
-  @include sm{
-    margin-right: 100px;
+//   @include sm{
+//      background-color: red;
+//     float: none;
+//     display: table-row;
+//     text-align: center;
+//    padding-top: 10px;
+//     margin-top: -10px;
+     
+   
+
+   
     
-  }
-}
+//   }
+// }
 
-.nav li {
-  margin: 0;
-  margin-left: 2rem;
+// .nav li {
+//   margin: 0;
+//   margin-left: 2rem;
+   
+//   @include sm {
+//     justify-items: auto;
+//   }
 
  
-}
+// }
 
-.nav a {
-  text-decoration: none;
-  color: white;
-  @include sm{
-  justify-content: baseline;
-  padding: 12px;
-  justify-items: center;
-  }
-}
+// .nav a {
+//   text-decoration: none;
+//   color: white;
+//   @include sm{
+//   justify-content: baseline;
+//   padding: 12px;
+//   justify-items: center;
+//   }
+// }
 
-.nav a:hover,
-.nav a:active {
-  color: #f3cafb;
-}
+// .nav{
+//   @include sm {
+//     margin-right: 100px;
+//     width: 200px;
+//    padding-top: -2px;
 
-.buttonContainer {
-  @include sm{
-    flex-direction: row;
-  }
-}
-.nav button {
-  font: inherit;
-  background:$button-color;
-  border: 1px solid $white;
-  padding: 0.5rem 1.5rem;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
-  border-radius: 10px;
+//   }
+// }
+
+// .nav a:hover,
+// .nav a:active {
+//   color: #f3cafb;
+// }
+
+// .buttonContainer {
+//   @include sm{
+//     flex-direction: row;
+//   }
+// }
+// .nav button {
+//   font: inherit;
+//   background:$button-color;
+//   border: 1px solid $white;
+//   padding: 0.5rem 1.5rem;
+//   color: white;
+//   cursor: pointer;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+//   border-radius: 10px;
 
 
 
    
+// }
+
+// .nav button:focus {
+//   outline: none;
+// }
+
+// .nav button:hover,
+// .nav button:active {
+//   color: $white;
+//   background-color: $button-hover-color;
+//   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.26);
+// }
+
+
+.linknav {
+  text-decoration:none;
+   color: inherit;
+ 
+   
+  
+   
+   
+
+
+  
 }
 
-.nav button:focus {
-  outline: none;
+.itemnav {
+  &:hover {
+    color: $white;
+  }
+
+   
 }
 
-.nav button:hover,
-.nav button:active {
-  color: $white;
-  background-color: $button-hover-color;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.26);
-}
+.button {
+    font: inherit;
+    background:$button-color;
+    border: 1px solid $white;
+    padding: 0.5rem 1.5rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+    &:hover {
+      
+      background: $gray;
+      cursor: pointer;
+      color: $yellow;
+ 
+  }
+  
+  @include sm{
+     border-radius: 5px;
+     width: 80px;
+     padding-block: 0.1rem;
+     padding-left: 18px;
+  }
+
+  @include md{
+    width: 100px;
+    padding-block: 0.2rem;
+  }
+     
+  }
